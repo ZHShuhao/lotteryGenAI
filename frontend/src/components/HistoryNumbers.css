@@ -1,0 +1,306 @@
+/*!* 页面整体样式 *!*/
+/*.history-numbers {*/
+/*  padding: 20px;*/
+/*  padding-top: 150px; !* 增加顶部填充，整体下移 *!*/
+/*  min-height: 100vh; !* 占满整个屏幕高度 *!*/
+/*  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(50, 50, 50, 0.6));*/
+/*  background-size: 400% 400%;*/
+/*  animation: gradientBG 10s ease infinite;*/
+/*  color: white;*/
+/*  text-align: center;*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  align-items: center;*/
+/*}*/
+
+/*@keyframes gradientBG {*/
+/*  0% { background-position: 0% 50%; }*/
+/*  50% { background-position: 100% 50%; }*/
+/*  100% { background-position: 0% 50%; }*/
+/*}*/
+
+/*!* 标题样式 *!*/
+/*.history-numbers h1 {*/
+/*  margin-bottom: 10px; !* 调整标题下边距 *!*/
+/*  margin-top: 20px; !* 增加顶部边距 *!*/
+/*  font-size: 36px; !* 放大字体 *!*/
+/*  color: #ffcc00;*/
+/*  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);*/
+/*}*/
+
+/*!* 表格外部容器样式 *!*/
+/*.history-table-wrapper {*/
+/*  max-height: 70vh; !* 表格最大高度 *!*/
+/*  overflow-y: auto; !* 垂直滚动 *!*/
+/*  width: 90%; !* 表格宽度适配 *!*/
+/*  margin: 20px 0; !* 表格上下间距 *!*/
+/*}*/
+
+/*!* 表格样式 *!*/
+/*.history-table {*/
+/*  width: 100%; !* 占满横向空间 *!*/
+/*  border-collapse: collapse; !* 合并边框 *!*/
+/*  background: rgba(255, 255, 255, 0.1);*/
+/*  table-layout: fixed; !* 固定列宽 *!*/
+/*}*/
+
+/*.history-table th,*/
+/*.history-table td {*/
+/*  border: 1px solid white;*/
+/*  padding: 10px;*/
+/*  text-align: center;*/
+/*  font-size: 14px;*/
+/*  word-wrap: break-word;*/
+/*}*/
+
+/*.history-table th {*/
+/*  position: sticky;*/
+/*  top: 0; !* 固定表头 *!*/
+/*  z-index: 2;*/
+/*  background: rgba(0, 0, 0, 0.9); !* 表头背景加深 *!*/
+/*  color: #ffcc00; !* 表头文字加亮 *!*/
+/*  font-size: 16px; !* 增大表头字体 *!*/
+/*  font-weight: bold;*/
+/*  text-transform: uppercase; !* 表头文字大写 *!*/
+/*  border-bottom: 2px solid #ffcc00; !* 表头下边框高亮 *!*/
+/*}*/
+
+/*!* 表格偶数行背景 *!*/
+/*.history-table tr:nth-child(even) {*/
+/*  background: rgba(255, 255, 255, 0.05);*/
+/*}*/
+
+/*!* 加载动画 *!*/
+/*.loading {*/
+/*  font-size: 24px;*/
+/*  font-weight: bold;*/
+/*  color: #ffffff;*/
+/*  text-align: center;*/
+/*  margin-top: 50px;*/
+/*  background-color: rgba(0, 0, 0, 0.8);*/
+/*  padding: 20px;*/
+/*  border-radius: 10px;*/
+/*  display: inline-block;*/
+/*  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);*/
+/*  animation: pulse 1.5s infinite;*/
+/*}*/
+
+/*@keyframes pulse {*/
+/*  0% { transform: scale(1); }*/
+/*  50% { transform: scale(1.1); }*/
+/*  100% { transform: scale(1); }*/
+/*}*/
+
+/*!* 分页按钮样式 *!*/
+/*.pagination {*/
+/*  margin-top: 10px; !* 缩小顶部间距 *!*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+/*  gap: 10px;*/
+/*  flex-wrap: wrap;*/
+/*  width: 100%;*/
+/*}*/
+
+/*.page-button {*/
+/*  background-color: rgba(255, 255, 255, 0.2);*/
+/*  border: 1px solid #ffcc00;*/
+/*  padding: 10px 15px;*/
+/*  cursor: pointer;*/
+/*  border-radius: 5px;*/
+/*  font-size: 16px;*/
+/*  color: white;*/
+/*  transition: all 0.3s ease-in-out;*/
+/*}*/
+
+/*.page-button:hover {*/
+/*  background-color: #ffcc00;*/
+/*  color: black;*/
+/*}*/
+
+/*.page-button.active {*/
+/*  background-color: #ff9900;*/
+/*  color: white;*/
+/*  font-weight: bold;*/
+/*  border-color: #ff9900;*/
+/*}*/
+
+/*.page-button:disabled {*/
+/*  background-color: #e0e0e0;*/
+/*  color: #999;*/
+/*  cursor: not-allowed;*/
+/*}*/
+
+/*.jump-to-page {*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  gap: 5px;*/
+/*}*/
+
+/*.jump-to-page input {*/
+/*  width: 60px;*/
+/*  padding: 5px;*/
+/*  text-align: center;*/
+/*  font-size: 16px;*/
+/*  border: 1px solid #ddd;*/
+/*  border-radius: 5px;*/
+/*}*/
+
+
+/*!* 按钮组样式 *!*/
+/*.button-group {*/
+/*  margin: 20px 0;*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  gap: 15px;*/
+/*}*/
+
+/*.lottery-button {*/
+/*  padding: 10px 20px;*/
+/*  font-size: 16px;*/
+/*  background-color: rgba(255, 255, 255, 0.2);*/
+/*  border: 1px solid #ffcc00;*/
+/*  border-radius: 5px;*/
+/*  color: white;*/
+/*  cursor: pointer;*/
+/*  transition: background-color 0.3s, color 0.3s;*/
+/*}*/
+
+/*.lottery-button:hover {*/
+/*  background-color: #ffcc00;*/
+/*  color: black;*/
+/*}*/
+
+/*.lottery-button.active {*/
+/*  background-color: #ff9900;*/
+/*  color: white;*/
+/*  font-weight: bold;*/
+/*  border-color: #ff9900;*/
+/*}*/
+
+
+.history-numbers {
+  width: 100%; /* 占满屏幕宽度 */
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  text-align: center;
+}
+
+.history-numbers h1 {
+  margin-bottom: 20px;
+  color: #ffff00; /* 黄色标题 */
+  font-size: 2.3em; /* 加大标题字体 */
+}
+
+.history-table-wrapper {
+  overflow-x: auto;
+  width: 100%; /* 父容器宽度占满屏幕 */
+}
+
+.history-table {
+  width: 100%; /* 表格宽度占满父容器 */
+  table-layout: fixed; /* 让表格均匀分布单元格宽度 */
+  border-collapse: collapse;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.history-table th,
+.history-table td {
+  word-break: break-word; /* 自动换行，避免单元格内容过长导致溢出 */
+  padding: 10px;
+  text-align: center;
+  font-size: 1.1em;
+}
+
+.history-table th {
+  background: rgba(0, 0, 0, 0.22);
+  color: #ffff00; /* 黄色表头字体 */
+  position: sticky; /* 固定表头 */
+  top: 0;
+  z-index: 2;
+}
+
+.history-table tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.page-button {
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.page-button:hover {
+  background-color: #d0d0d0;
+}
+
+.page-button.active {
+  background-color: rgba(101, 98, 98, 0.47);
+  color: white;
+  font-weight: bold;
+  border-color: rgba(101, 98, 98, 0.47);
+}
+
+.page-button:disabled {
+  background-color: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.jump-to-page {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.jump-to-page input {
+  width: 50px;
+  padding: 5px;
+  text-align: center;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px; /* 增加按钮组与表格之间的间距 */
+  gap: 10px;
+}
+
+.lottery-button {
+  background-color: rgba(255, 255, 255, 0.1); /* 半透明背景 */
+  border: 2px solid #ffff00; /* 黄色边框 */
+  color: #ffff00; /* 黄色字体 */
+  font-size: 15px; /* 增大字体 */
+  font-weight: bold; /* 字体加粗 */
+  padding: 10px 20px; /* 增大按钮内边距 */
+  border-radius: 8px; /* 圆角样式 */
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s; /* 添加交互动画效果 */
+}
+
+.lottery-button:hover {
+  background-color: rgba(255, 255, 255, 0.3); /* 鼠标悬停时背景变浅 */
+  transform: scale(1.1); /* 鼠标悬停时轻微放大按钮 */
+}
+
+.lottery-button.active {
+  background-color: rgba(255, 255, 255, 0.5); /* 激活状态更浅的背景 */
+  color: black; /* 激活状态字体为黑色 */
+}

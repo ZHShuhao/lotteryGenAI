@@ -1,0 +1,135 @@
+/*.history-statistic {*/
+/*  color: white;*/
+/*  text-align: center;*/
+/*  margin: 20px;*/
+/*  z-index: -1;*/
+/*}*/
+
+/*.history-statistic h1 {*/
+/*  font-size: 2.5rem;*/
+/*  margin-bottom: 20px;*/
+/*  color: #ffffff;*/
+/*}*/
+
+/*.chart-container {*/
+/*  margin: 30px auto;*/
+/*  width: 100%;*/
+/*  max-width: 1200px;*/
+/*  background-color: rgba(0, 0, 0, 0.8);*/
+/*  padding: 20px;*/
+/*  border-radius: 10px;*/
+/*  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);*/
+/*  z-index: 1;*/
+/*  height: 500px; !* 设置固定高度，防止无限扩展 *!*/
+/*}*/
+
+/*.chart-container h2 {*/
+/*  margin-bottom: 20px;*/
+/*  font-size: 1.5rem;*/
+/*  color: #ffffff;*/
+/*}*/
+
+/*.loading {*/
+/*  text-align: center;*/
+/*  font-size: 1.5rem;*/
+/*  color: #ffcc00;*/
+/*}*/
+
+/*.error {*/
+/*  text-align: center;*/
+/*  font-size: 1.5rem;*/
+/*  color: red;*/
+/*}*/
+
+
+/*.button-container {*/
+/*  display: flex;*/
+/*  justify-content: flex-end; !* 按钮靠右对齐 *!*/
+/*  position: fixed; !* 固定定位，确保按钮相对视口 *!*/
+/*  top: 10px; !* 距离视口顶部 10px *!*/
+/*  right: 20px; !* 距离视口右侧 20px *!*/
+/*  gap: 10px; !* 按钮之间的间距 *!*/
+/*  z-index: 10; !* 提高层级，确保按钮在其他元素之上 *!*/
+/*}*/
+
+
+/*.toggle-button {*/
+/*  background-color: rgba(0, 0, 0, 0.8);*/
+/*  color: white;*/
+/*  border: 2px solid rgba(255, 255, 255, 0.8);*/
+/*  padding: 8px 16px;*/
+/*  font-size: 1rem;*/
+/*  border-radius: 5px;*/
+/*  cursor: pointer;*/
+/*  transition: all 0.3s ease;*/
+/*}*/
+
+/*.toggle-button:hover {*/
+/*  background-color: rgba(255, 204, 0, 0.8);*/
+/*  color: black;*/
+/*}*/
+
+/*.toggle-button.active {*/
+/*  background-color: rgba(255, 204, 0, 1);*/
+/*  color: black;*/
+/*  border-color: rgba(255, 204, 0, 1);*/
+/*}*/
+
+.history-statistic {
+  color: white;
+  text-align: center;
+  margin: 20px;
+}
+
+.history-button-container {
+  display: flex; /* 保持使用 Flex 布局 */
+  flex-direction: column; /* 改为垂直排列 */
+  justify-content: flex-start; /* 垂直方向靠上对齐 */
+  align-items: flex-end; /* 水平方向靠右对齐 */
+  position: absolute; /* 仅在组件内定位 */
+  top: 100px; /* 距离顶部 100px */
+  right: 50px; /* 距离右侧 50px */
+  gap: 10px; /* 按钮之间的垂直间距 */
+  z-index: 10; /* 确保按钮在其他内容之上 */
+}
+
+.toggle-button {
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  padding: 20px 40px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toggle-button:hover {
+  background-color: rgba(225, 222, 222, 0.92);
+  color: black;
+}
+
+.toggle-button.active {
+  background-color: rgb(255, 255, 255);
+  color: black;
+  border-color: rgb(255, 255, 255);
+}
+
+
+.chart-container {
+  margin: 40px auto;
+  width: 100%;
+  max-width: 1500px;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  height: 490px;
+  overflow: visible; /* 确保内容不被裁剪 */
+  position: relative;
+}
+
+.chart-container + .chart-container {
+  margin-top: 45px; /* 增加上下图表之间的间距 */
+}
