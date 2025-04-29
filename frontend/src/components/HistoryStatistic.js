@@ -11,6 +11,7 @@ import {
   Title,
 } from "chart.js";
 import "./HistoryStatistic.css";
+import API from "../api"; // 路径根据实际结构来改
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, Title);
 
@@ -27,9 +28,13 @@ const HistoryStatistic = () => {
       setLoading(true);
       setError(null);
 
-      const response = await axios.get(
-        `http://127.0.0.1:5000/api/history-statistic/${type}` // 动态获取API
-      );
+      // const response = await axios.get(
+      //   `http://127.0.0.1:5000/api/history-statistic/${type}` // 动态获取API
+      // );
+     
+
+      // 正确的调用方式：
+      const response = await API.get(`/api/history-statistic/${type}`);
       const data = response.data;
 
        // 绑定白球数据

@@ -318,6 +318,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./HistoryNumbers.css";
+import API from "../api"; // 路径根据实际结构来改
 
 const HistoryNumbers = () => {
   const [data, setData] = useState([]);
@@ -328,8 +329,25 @@ const HistoryNumbers = () => {
   const itemsPerPage = 20;
   const maxPageButtons = 10;
 
-  // 动态 API URL
-  const apiUrl = `http://127.0.0.1:5000/api/history-numbers/${lotteryType}`;
+  // // 动态 API URL
+  // const apiUrl = `http://127.0.0.1:5000/api/history-numbers/${lotteryType}`;
+
+   // 异步加载数据
+   useEffect(() => {
+    const fetchHistoryNumbers = async () => {
+      try {
+        setLoading(true);
+        const response = await API.get(`/api/history-numbers/${lotteryType}`);
+        setData(response.data);
+      } catch (error) {
+        console.error("Error fetching history numbers:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHistoryNumbers();
+  }, [lotteryType]);
 
   // 动态表头和字段配置
   const tableConfig = {
@@ -343,19 +361,19 @@ const HistoryNumbers = () => {
     },
   };
 
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get(apiUrl)
-      .then((response) => {
-        setData(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      });
-  }, [apiUrl]);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   axios
+  //     .get(apiUrl)
+  //     .then((response) => {
+  //       setData(response.data);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching data:", error);
+  //       setLoading(false);
+  //     });
+  // }, [apiUrl]);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
