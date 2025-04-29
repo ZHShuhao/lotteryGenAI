@@ -21,7 +21,7 @@ import axios from "axios";
 
 // 创建一个 Axios 实例
 const API = axios.create({
-  baseURL: "http://127.0.0.1:5000", // Flask 后端地址
+  baseURL: "https://lotterygenai-backend.onrender.com", // Flask 后端地址              // online render backend:  https://lotterygenai-backend.onrender.com              test: http://127.0.0.1:5000
 });
 
 
