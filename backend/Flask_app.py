@@ -191,7 +191,7 @@ def load_condition_features_mega(file_path, num_classes=70, mega_classes=25):
         condition[num_classes * 5 + (number - 1)] = counts_mega.get(number, 0)
     return condition.unsqueeze(0)
 
-mega_condition_features = load_condition_features_mega("/Users/shuhaozhang/Documents/lotteryAI/Lottery_data/API_drawing_data.csv")
+mega_condition_features = load_condition_features_mega("/Lottery_data/API_drawing_data.csv")      # Lottery_data/API_drawing_data.csv
 print("Mega Millions 条件特征加载完成，特征维度：", mega_condition_features.size())
 
 # Power Ball 使用默认条件特征
@@ -202,7 +202,7 @@ print("Power Ball 使用默认条件特征，特征维度：", power_condition_f
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Mega Millions
-mega_model_path = "/Users/shuhaozhang/Documents/lotteryAI/backend/gan_generator.pth"
+mega_model_path = "/backend/gan_generator.pth"             # /Users/shuhaozhang/Documents/lotteryAI/backend/gan_generator.pth
 G_mega = Generator(mega_latent_dim, mega_condition_dim, mega_num_classes * 5, mega_mega_classes).to(device)
 
 if os.path.exists(mega_model_path):
@@ -213,7 +213,7 @@ else:
     raise FileNotFoundError(f"未找到模型文件：{mega_model_path}")
 
 # Power Ball
-power_model_path = "/Users/shuhaozhang/Documents/lotteryAI/backend/gan_powerball_generator.pth"
+power_model_path = "/backend/gan_powerball_generator.pth"
 G_power = PowerBallGenerator(power_latent_dim, power_condition_dim, power_num_classes * 5, power_mega_classes).to(device)
 
 if os.path.exists(power_model_path):
