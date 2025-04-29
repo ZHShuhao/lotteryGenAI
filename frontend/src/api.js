@@ -24,6 +24,7 @@ const API = axios.create({
   baseURL: "https://lotterygenai-backend.onrender.com", // Flask 后端地址              // online render backend:  https://lotterygenai-backend.onrender.com              test: http://127.0.0.1:5000
 });
 
+export default API;
 
 
 
