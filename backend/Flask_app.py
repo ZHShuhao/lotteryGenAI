@@ -155,6 +155,24 @@ from flask_cors import CORS
 CORS(app, resources={r"/*": {"origins": "*"}})  # 允许所有前端访问
 
 
+
+
+# ---- 设置项目根路径 (统一路径用) ----
+import os
+
+# 当前文件的目录（即 backend/）
+backend_dir = os.path.dirname(os.path.abspath(__file__))
+
+# 项目根目录（即 backend/ 的上一级）
+project_root = os.path.abspath(os.path.join(backend_dir, ".."))
+
+# 定义一个辅助函数，快速获取任何相对到项目根路径的文件
+def from_root(*relative_path_parts):
+    return os.path.join(project_root, *relative_path_parts)
+
+
+
+
 # Mega Millions 参数
 mega_latent_dim = 30
 mega_num_classes = 70
@@ -191,7 +209,12 @@ def load_condition_features_mega(file_path, num_classes=70, mega_classes=25):
         condition[num_classes * 5 + (number - 1)] = counts_mega.get(number, 0)
     return condition.unsqueeze(0)
 
-mega_condition_features = load_condition_features_mega("Lottery_data/API_drawing_data.csv")      # Lottery_data/API_drawing_data.csv
+#mega_condition_features = load_condition_features_mega("Lottery_data/API_drawing_data.csv")      # Lottery_data/API_drawing_data.csv
+
+csv_path = from_root("Lottery_data", "API_drawing_data.csv")
+mega_condition_features = load_condition_features_mega(csv_path)
+
+
 print("Mega Millions 条件特征加载完成，特征维度：", mega_condition_features.size())
 
 # Power Ball 使用默认条件特征
@@ -202,7 +225,9 @@ print("Power Ball 使用默认条件特征，特征维度：", power_condition_f
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Mega Millions
-mega_model_path = "backend/gan_generator.pth"             # /Users/shuhaozhang/Documents/lotteryAI/backend/gan_generator.pth
+#mega_model_path = "backend/gan_generator.pth"             # /Users/shuhaozhang/Documents/lotteryAI/backend/gan_generator.pth
+mega_model_path = from_root("backend", "gan_generator.pth")
+
 G_mega = Generator(mega_latent_dim, mega_condition_dim, mega_num_classes * 5, mega_mega_classes).to(device)
 
 if os.path.exists(mega_model_path):
@@ -213,7 +238,9 @@ else:
     raise FileNotFoundError(f"未找到模型文件：{mega_model_path}")
 
 # Power Ball
-power_model_path = "backend/gan_powerball_generator.pth"
+#power_model_path = "backend/gan_powerball_generator.pth"
+power_model_path = from_root("backend", "gan_powerball_generator.pth")
+
 G_power = PowerBallGenerator(power_latent_dim, power_condition_dim, power_num_classes * 5, power_mega_classes).to(device)
 
 if os.path.exists(power_model_path):
