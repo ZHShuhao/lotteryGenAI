@@ -154,7 +154,12 @@ cache = Cache(app, config={'CACHE_TYPE': 'SimpleCache'})
 from flask_cors import CORS
 
 # CORS(app, resources={r"/*": {"origins": "*"}})  # 允许所有前端访问
-CORS(app, origins=["https://lotterygenai-frontend.onrender.com"])
+# CORS(app, origins=["https://lotterygenai-frontend.onrender.com"])
+
+CORS(app, resources={
+    r"/generate/*": {"origins": "https://lotterygenai-frontend.onrender.com"},
+    r"/api/*": {"origins": "https://lotterygenai-frontend.onrender.com"}
+}, supports_credentials=True)
 
 
 
@@ -296,7 +301,6 @@ def generate_numbers(generator, batch_size, latent_dim, condition_features, num_
 
 # **API 路由**
 @app.route("/generate/mega_millions", methods=["GET"])
-@cross_origin()
 def generate_mega_millions():
     batch_size = int(request.args.get("batch_size", 1))  # 从请求参数中获取批次大小
     generated_numbers, generated_mega = generate_numbers(
@@ -313,7 +317,6 @@ def generate_mega_millions():
 
 
 @app.route("/generate/power_ball", methods=["GET"])
-@cross_origin()
 def generate_power_ball():
     batch_size = int(request.args.get("batch_size", 1))  # 从请求参数中获取批次大小
     generated_numbers, generated_mega = generate_numbers(
