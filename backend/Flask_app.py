@@ -153,7 +153,8 @@ app = Flask(__name__)
 cache = Cache(app, config={'CACHE_TYPE': 'SimpleCache'})
 from flask_cors import CORS
 
-CORS(app, resources={r"/*": {"origins": "*"}})  # 允许所有前端访问
+# CORS(app, resources={r"/*": {"origins": "*"}})  # 允许所有前端访问
+CORS(app, origins=["https://lotterygenai-frontend.onrender.com"])
 
 
 
