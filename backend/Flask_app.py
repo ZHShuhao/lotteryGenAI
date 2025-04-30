@@ -150,16 +150,19 @@ from power_statistic_api import fetch_power_ball_statistic_data
 
 
 app = Flask(__name__)
-cache = Cache(app, config={'CACHE_TYPE': 'SimpleCache'})
-from flask_cors import CORS
 
-# CORS(app, resources={r"/*": {"origins": "*"}})  # 允许所有前端访问
-# CORS(app, origins=["https://lotterygenai-frontend.onrender.com"])
 
 CORS(app, resources={
     r"/generate/*": {"origins": "https://lotterygenai-frontend.onrender.com"},
     r"/api/*": {"origins": "https://lotterygenai-frontend.onrender.com"}
 }, supports_credentials=True)
+
+
+cache = Cache(app, config={'CACHE_TYPE': 'SimpleCache'})
+
+# CORS(app, resources={r"/*": {"origins": "*"}})  # 允许所有前端访问
+# CORS(app, origins=["https://lotterygenai-frontend.onrender.com"])
+
 
 
 
