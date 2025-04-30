@@ -137,7 +137,8 @@ import os
 from flask_caching import Cache
 from gan_generator import Generator  # Mega Millions 的生成器类
 from gan_power_generator import PowerBallGenerator # Power Ball 的生成器类
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
+
 
 from mega_rapid_api import fetch_mega_millions_data  # 引入你的 mega_rapid_api.py 文件中的函数
 from mega_statistic_api import fetch_mega_millions_statistic_data
@@ -294,6 +295,7 @@ def generate_numbers(generator, batch_size, latent_dim, condition_features, num_
 
 # **API 路由**
 @app.route("/generate/mega_millions", methods=["GET"])
+@cross_origin()
 def generate_mega_millions():
     batch_size = int(request.args.get("batch_size", 1))  # 从请求参数中获取批次大小
     generated_numbers, generated_mega = generate_numbers(
@@ -310,6 +312,7 @@ def generate_mega_millions():
 
 
 @app.route("/generate/power_ball", methods=["GET"])
+@cross_origin()
 def generate_power_ball():
     batch_size = int(request.args.get("batch_size", 1))  # 从请求参数中获取批次大小
     generated_numbers, generated_mega = generate_numbers(
