@@ -326,6 +326,7 @@ def generate_numbers(generator, batch_size, latent_dim, condition_features, num_
 
 #     return jsonify({"status": "success", "results": results})
 
+@cross_origin
 @app.route("/generate/mega_millions", methods=["GET"])
 def generate_mega_millions():
     global G_mega
@@ -367,6 +368,7 @@ def generate_mega_millions():
 
 
 # --- Power Ball 生成接口 ---
+@cross_origin
 @app.route("/generate/power_ball", methods=["GET"])
 def generate_power_ball():
     global G_power
