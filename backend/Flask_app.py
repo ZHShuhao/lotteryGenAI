@@ -146,16 +146,21 @@ from mega_statistic_api import fetch_mega_millions_statistic_data
 from power_rapid_api import fetch_power_ball_data
 from power_statistic_api import fetch_power_ball_statistic_data
 
+G_mega = None
+G_power = None
+
 
 
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "https://lotterygenai-frontend.onrender.com"}}, supports_credentials=True)
 
 
-CORS(app, resources={
-    r"/generate/*": {"origins": "https://lotterygenai-frontend.onrender.com"},
-    r"/api/*": {"origins": "https://lotterygenai-frontend.onrender.com"}
-}, supports_credentials=True)
+
+# CORS(app, resources={
+#     r"/generate/*": {"origins": "https://lotterygenai-frontend.onrender.com"},
+#     r"/api/*": {"origins": "https://lotterygenai-frontend.onrender.com"}
+# }, supports_credentials=True)
 
 
 cache = Cache(app, config={'CACHE_TYPE': 'SimpleCache'})
@@ -303,117 +308,84 @@ def generate_numbers(generator, batch_size, latent_dim, condition_features, num_
 
 
 # **API 路由**
+# @app.route("/generate/mega_millions", methods=["GET"])
+# def generate_mega_millions():
+#     batch_size = int(request.args.get("batch_size", 1))  # 从请求参数中获取批次大小
+#     generated_numbers, generated_mega = generate_numbers(
+#         G_mega, batch_size, mega_latent_dim, mega_condition_features, mega_num_classes, mega_mega_classes
+#     )
+
+#     # 将生成的数字组合成前端期望的格式
+#     results = [
+#         {"numbers": generated_numbers[i], "mega_ball": generated_mega[i]} for i in range(batch_size)
+#     ]
+#     print("Generated results:", results)  # 打印调试信息
+
+#     return jsonify({"status": "success", "results": results})
+
 @app.route("/generate/mega_millions", methods=["GET"])
 def generate_mega_millions():
-    batch_size = int(request.args.get("batch_size", 1))  # 从请求参数中获取批次大小
+    global G_mega
+
+    if G_mega is None:
+        print("加载 Mega Millions 生成器模型中...")
+        G_mega_model_path = from_root("backend", "gan_generator.pth")
+        G_mega = Generator(mega_latent_dim, mega_condition_dim, mega_num_classes * 5, mega_mega_classes).to(device)
+        G_mega.load_state_dict(torch.load(G_mega_model_path, map_location=device))
+        G_mega.eval()
+        print("✅ Mega Millions 模型加载完成")
+
+    batch_size = int(request.args.get("batch_size", 1))
     generated_numbers, generated_mega = generate_numbers(
         G_mega, batch_size, mega_latent_dim, mega_condition_features, mega_num_classes, mega_mega_classes
     )
 
-    # 将生成的数字组合成前端期望的格式
     results = [
         {"numbers": generated_numbers[i], "mega_ball": generated_mega[i]} for i in range(batch_size)
     ]
-    print("Generated results:", results)  # 打印调试信息
-
+    print("Generated results:", results)
     return jsonify({"status": "success", "results": results})
 
 
+# @app.route("/generate/power_ball", methods=["GET"])
+# def generate_power_ball():
+#     batch_size = int(request.args.get("batch_size", 1))  # 从请求参数中获取批次大小
+#     generated_numbers, generated_mega = generate_numbers(
+#         G_power, batch_size, power_latent_dim, power_condition_features, power_num_classes, power_mega_classes
+#     )
+
+#     # 将生成的数字组合成前端期望的格式
+#     results = [
+#         {"numbers": generated_numbers[i], "power_ball": generated_mega[i]} for i in range(batch_size)
+#     ]
+#     print("Generated results:", results)  # 打印调试信息
+
+#     return jsonify({"status": "success", "results": results})
+
+
+# --- Power Ball 生成接口 ---
 @app.route("/generate/power_ball", methods=["GET"])
 def generate_power_ball():
-    batch_size = int(request.args.get("batch_size", 1))  # 从请求参数中获取批次大小
+    global G_power
+
+    if G_power is None:
+        print("加载 Power Ball 生成器模型中...")
+        G_power_model_path = from_root("backend", "gan_powerball_generator.pth")
+        G_power = PowerBallGenerator(power_latent_dim, power_condition_dim, power_num_classes * 5, power_mega_classes).to(device)
+        G_power.load_state_dict(torch.load(G_power_model_path, map_location=device))
+        G_power.eval()
+        print("✅ Power Ball 模型加载完成")
+
+    batch_size = int(request.args.get("batch_size", 1))
     generated_numbers, generated_mega = generate_numbers(
         G_power, batch_size, power_latent_dim, power_condition_features, power_num_classes, power_mega_classes
     )
 
-    # 将生成的数字组合成前端期望的格式
     results = [
         {"numbers": generated_numbers[i], "power_ball": generated_mega[i]} for i in range(batch_size)
     ]
-    print("Generated results:", results)  # 打印调试信息
-
+    print("Generated results:", results)
     return jsonify({"status": "success", "results": results})
-
-
-# # **API 路由**
-# @app.route("/generate/mega_millions", methods=["GET"])
-# def generate_mega_millions():
-#     generated_numbers, generated_mega = generate_numbers(
-#         G_mega, 1, mega_latent_dim, mega_condition_features, mega_num_classes, mega_mega_classes
-#     )
-#     print({"numbers": generated_numbers, "mega_ball": generated_mega})  # 打印调试信息
-#     return jsonify({
-#         "results": {
-#             "numbers": generated_numbers,
-#             "mega_ball": generated_mega
-#         }
-#         # "numbers": generated_numbers, "mega_ball": generated_mega
-#     })
-#
-# @app.route("/generate/power_ball", methods=["GET"])
-# def generate_power_ball():
-#     generated_numbers, generated_mega = generate_numbers(
-#         G_power, 1, power_latent_dim, power_condition_features, power_num_classes, power_mega_classes
-#     )
-#     print({"numbers": generated_numbers, "power_ball": generated_mega})  # 打印调试信息
-#     return jsonify({
-#         "results": {
-#             "numbers": generated_numbers,
-#             "mega_ball": generated_mega
-#         }
-#         # "numbers": generated_numbers, "power_ball": generated_mega
-#     })
-
-
-
-
-# # **根路径路由**
-# @app.route("/", methods=["GET"])
-# def home():
-#     return """
-#     <!DOCTYPE html>
-#     <html>
-#     <head>
-#         <title>Lottery Number Generator</title>
-#     </head>
-#     <body>
-#         <h1>Welcome to the Lottery Number Generator API</h1>
-#         <p>Use the form below to generate lottery numbers:</p>
-#         <form action="/generate" method="post" enctype="application/json">
-#             <label for="batch_size">Batch Size (1-10):</label>
-#             <input type="number" id="batch_size" name="batch_size" min="1" max="10" required>
-#             <button type="submit">Generate</button>
-#         </form>
-#     </body>
-#     </html>
-#     """
-#
-#
-# # API 路由
-# @app.route("/generate", methods=["POST"])
-# def generate():
-#     try:
-#         # 检查是否来自表单提交
-#         if request.form:
-#             batch_size = int(request.form.get("batch_size", 1))
-#         else:  # 默认解析 JSON
-#             batch_size = int(request.json.get("batch_size", 1))
-#
-#         if batch_size < 1 or batch_size > 10:
-#             return jsonify({"error": "batch_size 应在 1 到 10 之间"}), 400
-#
-#         numbers, mega = generate_numbers(batch_size)
-#         results = [
-#             {"numbers": numbers[i], "mega_ball": mega[i]} for i in range(batch_size)
-#         ]
-#         # 打印 results 到控制台
-#         print("Generated results:", results)
-#
-#         return jsonify({"status": "success", "results": results})
-#
-#     except Exception as e:
-#         return jsonify({"error": str(e)}), 500
-
 
 
 
