@@ -153,7 +153,10 @@ G_power = None
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "https://lotterygenai-frontend.onrender.com"}}, supports_credentials=True)
+from flask_cors import CORS
+
+CORS(app, origins=["https://lotterygenai-frontend.onrender.com"], supports_credentials=True)
+
 
 
 
@@ -239,31 +242,31 @@ print("Power Ball 使用默认条件特征，特征维度：", power_condition_f
 # **加载生成器模型**
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# Mega Millions
-#mega_model_path = "backend/gan_generator.pth"             # /Users/shuhaozhang/Documents/lotteryAI/backend/gan_generator.pth
-mega_model_path = from_root("backend", "gan_generator.pth")
+# # Mega Millions
+# #mega_model_path = "backend/gan_generator.pth"             # /Users/shuhaozhang/Documents/lotteryAI/backend/gan_generator.pth
+# mega_model_path = from_root("backend", "gan_generator.pth")
 
-G_mega = Generator(mega_latent_dim, mega_condition_dim, mega_num_classes * 5, mega_mega_classes).to(device)
+# G_mega = Generator(mega_latent_dim, mega_condition_dim, mega_num_classes * 5, mega_mega_classes).to(device)
 
-if os.path.exists(mega_model_path):
-    G_mega.load_state_dict(torch.load(mega_model_path, map_location=device))
-    G_mega.eval()
-    print("Mega Millions 生成器模型加载成功！")
-else:
-    raise FileNotFoundError(f"未找到模型文件：{mega_model_path}")
+# if os.path.exists(mega_model_path):
+#     G_mega.load_state_dict(torch.load(mega_model_path, map_location=device))
+#     G_mega.eval()
+#     print("Mega Millions 生成器模型加载成功！")
+# else:
+#     raise FileNotFoundError(f"未找到模型文件：{mega_model_path}")
 
-# Power Ball
-#power_model_path = "backend/gan_powerball_generator.pth"
-power_model_path = from_root("backend", "gan_powerball_generator.pth")
+# # Power Ball
+# #power_model_path = "backend/gan_powerball_generator.pth"
+# power_model_path = from_root("backend", "gan_powerball_generator.pth")
 
-G_power = PowerBallGenerator(power_latent_dim, power_condition_dim, power_num_classes * 5, power_mega_classes).to(device)
+# G_power = PowerBallGenerator(power_latent_dim, power_condition_dim, power_num_classes * 5, power_mega_classes).to(device)
 
-if os.path.exists(power_model_path):
-    G_power.load_state_dict(torch.load(power_model_path, map_location=device))
-    G_power.eval()
-    print("Power Ball 生成器模型加载成功！")
-else:
-    raise FileNotFoundError(f"未找到模型文件：{power_model_path}")
+# if os.path.exists(power_model_path):
+#     G_power.load_state_dict(torch.load(power_model_path, map_location=device))
+#     G_power.eval()
+#     print("Power Ball 生成器模型加载成功！")
+# else:
+#     raise FileNotFoundError(f"未找到模型文件：{power_model_path}")
 
 # **推理函数**
 def generate_numbers(generator, batch_size, latent_dim, condition_features, num_classes, mega_classes):
